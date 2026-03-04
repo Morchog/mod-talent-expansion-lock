@@ -1,0 +1,25 @@
+[worldserver]
+
+###############################################
+# Talent Expansion Lock Module
+###############################################
+#
+#    TalentExpansionLock.Enable
+#        Description: Enable module at server start
+#        Default:     0 - Disabled
+#                     1 - Enabled
+#
+#    TalentExpansionLock.Level60MaxDepth
+#        Description: Last row of talent depth that is allowed for level 60.
+#        Default:     30 - This is usually the last tallent available in vanilla
+#                     0 - 50 (Requred tallents spent in the tree)
+#
+#    TalentExpansionLock.Level70MaxDepth
+#        Description: Last row of talent depth that is allowed for level 70.
+#        Default:     40 - This is usually the last tallent available in TBC
+#                     0 - 50 (Requred tallents spent in the tree)
+#
+
+TalentExpansionLock.Enable = 1
+TalentExpansionLock.Level60MaxDepth = 30
+TalentExpansionLock.Level70MaxDepth = 40
