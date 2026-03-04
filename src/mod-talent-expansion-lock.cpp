@@ -80,12 +80,12 @@ public:
         player->SendTalentsInfoData(false);
     }
 
-    void OnLogin(Player* player) override
+    void OnPlayerLogin(Player* player) override
     {
         UpdateGlyphSlots(player);
     }
 
-    void OnLevelChanged(Player* player, uint8 /*oldLevel*/) override
+    void OnPlayerLevelChanged(Player* player, uint8 /*oldLevel*/) override
     {
         UpdateGlyphSlots(player);
     }
