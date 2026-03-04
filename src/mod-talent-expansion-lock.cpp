@@ -43,53 +43,6 @@ public:
 
         return true;
     }
-
-    // =========================================================
-    // Glyph Lock System
-    // =========================================================
-    void UpdateGlyphSlots(Player* player)
-    {
-        if (!sConfigMgr->GetOption<bool>("TalentExpansionLock.Enable", true))
-            return;
-
-        if (!player)
-            return;
-
-        uint8 level = player->GetLevel();
-
-        // Let core initialize normal glyph availability
-        player->InitGlyphsForLevel();
-
-        for (uint8 slot = 0; slot < 6; ++slot)
-        {
-            uint32 unlockLevel = sConfigMgr->GetOption<uint32>(
-                Acore::StringFormat("TalentExpansionLock.GlyphSlot{}", slot),
-                80
-            );
-
-            bool unlocked = level >= unlockLevel;
-
-            if (!unlocked)
-            {
-                // Remove glyph if exists
-                if (player->GetGlyph(slot))
-                    player->SetGlyph(slot, 0, true);
-            }
-        }
-
-        // Refresh talent/glyph UI
-        player->SendTalentsInfoData(false);
-    }
-
-    void OnPlayerLogin(Player* player) override
-    {
-        UpdateGlyphSlots(player);
-    }
-
-    void OnPlayerLevelChanged(Player* player, uint8 /*oldLevel*/) override
-    {
-        UpdateGlyphSlots(player);
-    }
 };
 
 class TalentExpansionLock_WorldScript : public WorldScript
