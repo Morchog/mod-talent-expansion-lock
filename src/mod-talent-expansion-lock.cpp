@@ -53,7 +53,7 @@ public:
 
     void OnBeforeConfigLoad(bool /*reload*/) override
     {
-        sConfigMgr->LoadModuleConfigs();
+        sConfigMgr->LoadModulesConfigs();
     }
 };
 
