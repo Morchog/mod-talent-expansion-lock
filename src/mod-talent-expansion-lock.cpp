@@ -57,6 +57,9 @@ public:
 
         uint8 level = player->GetLevel();
 
+        // Let core initialize normal glyph availability
+        player->InitGlyphsForLevel();
+
         for (uint8 slot = 0; slot < 6; ++slot)
         {
             uint32 unlockLevel = sConfigMgr->GetOption<uint32>(
@@ -70,14 +73,12 @@ public:
             {
                 // Remove glyph if exists
                 if (player->GetGlyph(slot))
-                    player->SetGlyph(slot, 0);
+                    player->SetGlyph(slot, 0, true);
             }
-
-            player->SetGlyphSlot(slot, unlocked);
         }
 
         // Refresh talent/glyph UI
-        player->SendTalentsInfoData(false);
+        player->SendTalentsInfoData();
     }
 
     void OnPlayerLogin(Player* player) override
