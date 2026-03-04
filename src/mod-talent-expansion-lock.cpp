@@ -1,6 +1,5 @@
 #include "ScriptMgr.h"
 #include "Player.h"
-#include "TalentMgr.h"
 #include "Chat.h"
 #include "Config.h"
 
