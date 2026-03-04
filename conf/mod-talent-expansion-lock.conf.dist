@@ -23,3 +23,11 @@
 TalentExpansionLock.Enable = 1
 TalentExpansionLock.Level60MaxDepth = 30
 TalentExpansionLock.Level70MaxDepth = 40
+
+# Glyph unlock levels (slot index 0–5)
+TalentExpansionLock.GlyphSlot0 = 50
+TalentExpansionLock.GlyphSlot1 = 70
+TalentExpansionLock.GlyphSlot2 = 80
+TalentExpansionLock.GlyphSlot3 = 30
+TalentExpansionLock.GlyphSlot4 = 65
+TalentExpansionLock.GlyphSlot5 = 75

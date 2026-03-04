@@ -8,6 +8,9 @@ class TalentExpansionLock : public PlayerScript
 public:
     TalentExpansionLock() : PlayerScript("TalentExpansionLock") { }
 
+    // =========================================================
+    // Talent Depth Lock
+    // =========================================================
     bool OnPlayerCanLearnTalent(Player* player, TalentEntry const* talent, uint32 /*rank*/) override
     {
         if (!sConfigMgr->GetOption<bool>("TalentExpansionLock.Enable", true))
@@ -33,16 +36,58 @@ public:
 
         if (talentDepth > maxDepthAllowed)
         {
-            ChatHandler(player->GetSession()).PSendSysMessage(
-                "|cffFF0000[TalentExpansionLock]|r Your level (%u) allows talents only up to %u talent depth.",
-                level,
-                maxDepthAllowed
-            );
+            ChatHandler(player->GetSession()).PSendSysMessage("This talent is not available for your level!");
 
             return false;
         }
 
         return true;
+    }
+
+    // =========================================================
+    // Glyph Lock System
+    // =========================================================
+    void UpdateGlyphSlots(Player* player)
+    {
+        if (!sConfigMgr->GetOption<bool>("TalentExpansionLock.Enable", true))
+            return;
+
+        if (!player)
+            return;
+
+        uint8 level = player->GetLevel();
+
+        for (uint8 slot = 0; slot < 6; ++slot)
+        {
+            uint32 unlockLevel = sConfigMgr->GetOption<uint32>(
+                Acore::StringFormat("TalentExpansionLock.GlyphSlot{}", slot),
+                80
+            );
+
+            bool unlocked = level >= unlockLevel;
+
+            if (!unlocked)
+            {
+                // Remove glyph if exists
+                if (player->GetGlyph(slot))
+                    player->SetGlyph(slot, 0);
+            }
+
+            player->SetGlyphSlot(slot, unlocked);
+        }
+
+        // Refresh talent/glyph UI
+        player->SendTalentsInfoData(false);
+    }
+
+    void OnLogin(Player* player) override
+    {
+        UpdateGlyphSlots(player);
+    }
+
+    void OnLevelChanged(Player* player, uint8 /*oldLevel*/) override
+    {
+        UpdateGlyphSlots(player);
     }
 };
 
