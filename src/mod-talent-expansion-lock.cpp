@@ -78,7 +78,7 @@ public:
         }
 
         // Refresh talent/glyph UI
-        player->SendTalentsInfoData();
+        player->SendTalentsInfoData(false);
     }
 
     void OnPlayerLogin(Player* player) override
